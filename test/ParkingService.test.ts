@@ -1,3 +1,5 @@
+import ParkingService from "../src/ParkingService";
+
 test("Deve entrar e sair um carro do estacionamento, calculando um valor da tarifa, 10 reais por hora de permanencia", async () => {
     //Given
     const parkingService = new ParkingService();
