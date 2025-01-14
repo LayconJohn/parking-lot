@@ -9,6 +9,7 @@ export default class ParkingService {
     }
 
     async checkin(plate: string, checkinDate: Date) {
+        if(!plate.match(/[A-Z]{3}[0-9]{4}/)) throw new Error("Invalid plate")
         this.parkedCars[plate] = { 
             plate,
             checkinDate
