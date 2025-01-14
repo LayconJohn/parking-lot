@@ -1,7 +1,6 @@
 import ParkedCar from "./ParkedCar";
-import ParkedCarDAO from "./ParkedCarDAO";
+import ParkedCarDAO from "./ParkedCarRepository";
 import Period from "./Period";
-import Plate from "./Plate";
 
 export default class ParkingService {
     constructor(
