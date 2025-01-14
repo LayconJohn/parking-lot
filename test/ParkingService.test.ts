@@ -1,11 +1,13 @@
 import ParkedCarDAOMemory from "../src/ParkedCarDAOMemory";
 import ParkingService from "../src/ParkingService";
+import Period from "../src/Period";
 
 let parkingService: ParkingService;
 
 beforeAll(() => {
+    const workingHours = new Period(new Date("2025-01-13T08:00:00"), new Date("2025-01-13T22:00:00"))
     const parkedCarDAO = new ParkedCarDAOMemory();
-    parkingService = new ParkingService(parkedCarDAO);
+    parkingService = new ParkingService(workingHours, parkedCarDAO);
 });
 
 test("Deve entrar e sair um carro do estacionamento, calculando um valor da tarifa, 10 reais por hora de permanencia", async () => {

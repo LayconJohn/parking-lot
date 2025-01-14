@@ -6,10 +6,10 @@ export default class ParkedCarDAOMemory implements ParkedCarDAO {
     constructor() {}
 
     async save(parkedCar: any): Promise<void> {
-        this.parkedCars[parkedCar.plate] = parkedCar;
+        this.parkedCars[parkedCar.plate.value] = parkedCar;
     }
     async update(parkedCar: any): Promise<void> {
-        this.parkedCars[parkedCar.plate] = parkedCar;
+        this.parkedCars[parkedCar.plate.value] = parkedCar;
     }
     async get(plate: string): Promise<any> {
         return this.parkedCars[plate];

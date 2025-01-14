@@ -1,18 +1,20 @@
 import ParkedCarDAO from "./ParkedCarDAO";
+import Period from "./Period";
+import Plate from "./Plate";
 
 export default class ParkingService {
-    OPEN_HOUR = 8;
-    CLOSE_HOUR = 22;
-
     constructor(
+        readonly workingHours: Period,
         readonly parkedCarDAO: ParkedCarDAO
-        ){}
+        ){
+
+        }
 
     async checkin(plate: string, checkinDate: Date) {
-        if(checkinDate.getHours() < this.OPEN_HOUR || checkinDate.getHours() > this.CLOSE_HOUR) throw new Error("Parking lot is closed")
-        if(!plate.match(/[A-Z]{3}[0-9]{4}/)) throw new Error("Invalid plate")
+        if(this.workingHours.isOutOfPeriod(checkinDate)) throw new Error("Parking lot is closed");
+
         const parkedCar = {
-            plate,
+            plate: new Plate(plate),
             checkinDate
         }    
         await this.parkedCarDAO.save(parkedCar);
@@ -20,11 +22,11 @@ export default class ParkingService {
     }
 
     async checkout(plate: string, checkoutDate: Date) {
-        
         const parkedCar = await this.parkedCarDAO.get(plate);
         if(!parkedCar) throw new Error(`${plate} not parked`);
         parkedCar.checkoutDate = checkoutDate;
-        parkedCar.duration = (parkedCar.checkoutDate.getTime() - parkedCar.checkinDate.getTime()) / (1000 * 60 * 60); 
+        const period = new Period(parkedCar.checkinDate, parkedCar.checkoutDate)
+        parkedCar.duration = period.getDurationInHours();
         parkedCar.price = parkedCar.duration * 10;
         await this.parkedCarDAO.update(parkedCar);
         return {
