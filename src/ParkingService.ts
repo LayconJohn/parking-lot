@@ -4,23 +4,21 @@ export default class ParkingService {
     parkedCars: any = {}
 
     constructor(
-        readonly clock: Clock
+        
         ){
 
     }
 
-    async checkin(plate: string) {
-        const checkinDate = this.clock.getCurrentDate()
+    async checkin(plate: string, checkinDate: Date) {
         this.parkedCars[plate] = { 
             plate,
             checkinDate
         };
     }
 
-    async checkout(plate: string) {
+    async checkout(plate: string, checkoutDate: Date) {
         const parkedCar = this.parkedCars[plate];
         // if(!parkedCar) throw new Error(`${plate} not parked`);
-        const checkoutDate = this.clock.getCurrentDate();
         const duration = (checkoutDate.getTime() - parkedCar.checkinDate.getTime()) / (1000 * 60 * 60); 
         const price = duration * 10;
         return {
