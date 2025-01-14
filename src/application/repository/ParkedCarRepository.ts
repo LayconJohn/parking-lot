@@ -1,4 +1,4 @@
-import ParkedCar from "./ParkedCar";
+import ParkedCar from "./domain/ParkedCar";
 
 // Table Data Gateway => DAO
 export default interface ParkedCarRepository {

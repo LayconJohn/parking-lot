@@ -1,8 +1,8 @@
 
-import CheckIn from "../src/Checkin";
-import CheckOut from "../src/Checkout";
-import ParkedCarDAOMemory from "../src/ParkedCarRepositoryMemory";
-import Period from "../src/Period";
+import CheckIn from "../src/application/usecase/Checkin";
+import CheckOut from "../src/application/usecase/Checkout";
+import ParkedCarDAOMemory from "../src/infra/database/ParkedCarRepositoryMemory";
+import Period from "../src/domain/Period";
 
 
 let checkIn: CheckIn;

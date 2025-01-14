@@ -1,5 +1,5 @@
-import ParkedCar from "./ParkedCar";
-import ParkedCarRepository from "./ParkedCarRepository";
+import ParkedCarRepository from "../../application/repository/ParkedCarRepository";
+import ParkedCar from "../../domain/ParkedCar";
 
 export default class ParkedCarRepositoryMemory implements ParkedCarRepository {
     parkedCars: any = {}

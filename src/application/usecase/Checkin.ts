@@ -1,18 +1,18 @@
-import ParkedCar from "./ParkedCar";
-import ParkedCarDAO from "./ParkedCarRepository";
-import Period from "./Period";
+import ParkedCar from "../../domain/ParkedCar";
+import Period from "../../domain/Period";
+import ParkedCarRepository from "../repository/ParkedCarRepository";
 
 export default class CheckIn {
     constructor(
         readonly workingHours: Period,
-        readonly parkedCarDAO: ParkedCarDAO
+        readonly parkedCarRepository: ParkedCarRepository
         ){ }
 
     async execute(plate: string, checkinDate: Date) {
         if(this.workingHours.isOutOfPeriod(checkinDate)) throw new Error("Parking lot is closed");
 
         const parkedCar = new ParkedCar(plate, checkinDate);  
-        await this.parkedCarDAO.save(parkedCar);
+        await this.parkedCarRepository.save(parkedCar);
     }
 
 }
