@@ -32,3 +32,9 @@ test("Não deve entrar carro com placa inválida", async () => {
     const checkinDate = new Date("2025-01-13T10:00:00");
     await expect(() => parkingService.checkin(plate, checkinDate)).rejects.toThrow(new Error("Invalid plate"))
 });
+
+test("Não deve entrar carro antes da abertura do estacionamento", async () => {
+    const plate = "AAA1111";
+    const checkinDate = new Date("2025-01-13T7:59:00");
+    await expect(() => parkingService.checkin(plate, checkinDate)).rejects.toThrow(new Error("PArking lot is closed"))
+});

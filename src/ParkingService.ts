@@ -1,7 +1,7 @@
 import ParkedCarDAO from "./ParkedCarDAO";
 
 export default class ParkingService {
-    parkedCars: any = {}
+    
 
     constructor(
         readonly parkedCarDAO: ParkedCarDAO
@@ -16,14 +16,11 @@ export default class ParkingService {
             checkinDate
         }    
         await this.parkedCarDAO.save(parkedCar);
-        // this.parkedCars[plate] = { 
-        //     plate,
-        //     checkinDate
-        // };
+
     }
 
     async checkout(plate: string, checkoutDate: Date) {
-        // const parkedCar = this.parkedCars[plate];
+        
         const parkedCar = await this.parkedCarDAO.get(plate);
         if(!parkedCar) throw new Error(`${plate} not parked`);
         parkedCar.checkoutDate = checkoutDate;
