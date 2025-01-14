@@ -1,24 +1,13 @@
-import ParkedCar from "./ParkedCar";
 import ParkedCarDAO from "./ParkedCarRepository";
 import Period from "./Period";
 
-export default class ParkingService {
+export default class CheckOut {
     constructor(
         readonly workingHours: Period,
         readonly parkedCarDAO: ParkedCarDAO
-        ){
+        ){}
 
-        }
-
-    async checkin(plate: string, checkinDate: Date) {
-        if(this.workingHours.isOutOfPeriod(checkinDate)) throw new Error("Parking lot is closed");
-
-        const parkedCar = new ParkedCar(plate, checkinDate);  
-        await this.parkedCarDAO.save(parkedCar);
-
-    }
-
-    async checkout(plate: string, checkoutDate: Date) {
+    async execute(plate: string, checkoutDate: Date) {
         const parkedCar = await this.parkedCarDAO.get(plate);
         if(!parkedCar) throw new Error(`${plate} not parked`);
         parkedCar.checkout(checkoutDate)
